@@ -8,14 +8,19 @@ use Illuminate\Http\Request;
 class FollowController extends Controller
 {
 
-    public function show($urlName){
+    public function show($urlName)
+    {
         $user = User::whereUrlName($urlName)->first();
+
+
         return view('user.following', ['user' => $user]);
 
     }
 
-    public function create($urlName){
+    public function create($urlName)
+    {
         $user = \Auth::user();
+
         $followee = User::whereUrlName($urlName)->first();
 
         $user->following()->attach($followee->id);

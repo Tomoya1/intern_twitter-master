@@ -47,6 +47,9 @@ class MockController extends Controller
      */
     public function following()
     {
+        dd(2222);
+
+
         return view('user.following');
     }
 
@@ -55,6 +58,8 @@ class MockController extends Controller
      */
     public function followers()
     {
+        dd(1111);
+
         return view('user.followers');
     }
 }

@@ -27,12 +27,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile', 'UserController@updateProfile');
     Route::put('account', 'UserController@updateAccount');
 
+    Route::post('tweet', 'TweetController@tweet');
 
     Route::get('/{url_name}', 'FollowController@show');
     Route::post('/{url_name}', 'FollowController@create');
     Route::delete('/{url_name}', 'FollowController@delete');
 
-    Route::post('tweet', 'TweetController@tweet');
+
 
 
 });

@@ -90,10 +90,11 @@ class User extends Authenticatable
             return;
         }
 
-        $path = $value->store("public");
+        if ($value instanceof UploadedFile) {
+            $value = $value->store("public");
+        }
 
-
-        $this->attributes['avatar'] = $path;
+        $this->attributes['avatar'] = $value;
 
     }
 

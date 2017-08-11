@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         $user = \Auth::user();
         $tweets = $user->tweets()->latest()->get();
-
+        
         return view('home',['user' => $user, 'tweets' => $tweets]);
     }
 
