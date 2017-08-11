@@ -1,9 +1,9 @@
 <div class="profile-header" style="background-image: url({{ asset('images/iceland.jpg') }})">
     <div class="container">
         <div class="container-inner">
-            <img class="rounded-circle media-object" src="{{ asset('images/no-thumb.png') }}">
-            <h3 class="profile-header-user">snicmakino</h3>
-            <p class="profile-header-bio">Software engineer（JavaとかDBとかAWSとか） 空前絶後のKotlinブーム中</p>
+            <img class="rounded-circle media-object" src="{{ asset($user->avatar) }}">
+            <h3 class="profile-header-user">{{$user->url_name}}</h3>
+            <p class="profile-header-bio">{{$user->description}}</p>
         </div>
     </div>
 
@@ -12,19 +12,19 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     ツイート
-                    <strong class="d-block">79</strong>
+                    <strong class="d-block">{{$user->tweets()->count()}}</strong>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     フォロー
-                    <strong class="d-block">30</strong>
+                    <strong class="d-block">{{$user->following()->count()}}</strong>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     フォロワー
-                    <strong class="d-block">7</strong>
+                    <strong class="d-block">{{$user->followers()->count()}}</strong>
                 </a>
             </li>
         </ul>

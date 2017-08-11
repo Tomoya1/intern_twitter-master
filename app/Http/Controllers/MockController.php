@@ -17,8 +17,9 @@ class MockController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function profile()
+    public function profile(Request $request)
     {
+
         return view('settings.profile');
     }
 
@@ -35,6 +36,9 @@ class MockController extends Controller
      */
     public function user()
     {
+        $user = \Auth::user();
+//        User::find(id);
+
         return view('user.index');
     }
 

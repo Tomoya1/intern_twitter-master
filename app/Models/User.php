@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\User
  *
@@ -46,6 +47,7 @@ class User extends Authenticatable
         'password',
         'display_name',
         'avatar',
+        'description'
     ];
 
     /**
@@ -57,4 +59,46 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
+
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follow', 'follower_id', 'followee_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow', 'followee_id', 'follower_id');
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return strtr($value, ['public/' => 'storage/']);
+    }
+
+    /**
+     * @param null|UploadedFile $value
+     */
+    public function setAvatarAttribute($value)
+    {
+        if (is_null($value)) {
+            return;
+        }
+
+        $path = $value->store("public");
+
+
+        $this->attributes['avatar'] = $path;
+
+    }
+
+    public function isFollowing(User $user)
+    {
+        return $this->following()->wherePivot('followee_id', $user->id)->exists();
+    }
 }
